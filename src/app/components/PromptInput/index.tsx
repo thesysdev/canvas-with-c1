@@ -1,8 +1,7 @@
 import { clsx } from "clsx";
 import { useState, useRef, useEffect } from "react";
-import { track, useEditor, createShapeId } from "tldraw";
-import { isMac } from "@/app/utils";
-import { makeApiCall } from "@/app/helpers/api";
+import { track, useEditor } from "tldraw";
+import { isMac, createC1ComponentShape } from "@/app/utils";
 
 interface PromptInputProps {
   focusEventName: string;
@@ -32,43 +31,17 @@ export const PromptInput = track(({ focusEventName }: PromptInputProps) => {
   }, [focusEventName]);
 
   const onInputSubmit = async (prompt: string) => {
-    const shapeId = createShapeId();
-    editor.createShape({
-      id: shapeId,
-      type: "c1-component",
-      props: {
-        w: 600,
-        h: 300,
-      },
-    });
-    await makeApiCall({
-      searchQuery: prompt,
-      onResponseStreamStart: () => {
-        console.log('calling update shape')
-        editor.updateShape({
-          id: shapeId,
-          type: "c1-component",
-          props: { isStreaming: true },
-        });
-      },
-      onResponseUpdate: (response) => {
-        console.log('calling update shape')
-        editor.updateShape({
-          id: shapeId,
-          type: "c1-component",
-          props: { c1Response: response, isStreaming: true },
-        });
-      },
-      onResponseStreamEnd: () => {
-        editor.updateShape({
-          id: shapeId,
-          type: "c1-component",
-          props: { isStreaming: false },
-        });
-      },
-      abortController: null,
-      setAbortController: () => {},
-    });
+    try {
+      await createC1ComponentShape(editor, {
+        searchQuery: prompt,
+        width: 600,
+        height: 300,
+        centerCamera: true,
+        animationDuration: 200,
+      });
+    } catch (error) {
+      console.error("Failed to create C1 component shape:", error);
+    }
   };
 
   return (

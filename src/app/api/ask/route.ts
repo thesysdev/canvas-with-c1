@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import OpenAI from "openai";
 import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { transformStream } from "@crayonai/stream";
+import { SYSTEM_PROMPT } from "./systemPrompt";
 
 const client = new OpenAI({
   baseURL: "http://localhost:3102/v1/embed",
@@ -9,9 +10,10 @@ const client = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
-  const { prompt, previousC1Response } = (await req.json()) as {
+  const { prompt, previousC1Response, context } = (await req.json()) as {
     prompt: string;
     previousC1Response?: string;
+    context?: string;
   };
 
   const messages: ChatCompletionMessageParam[] = [];
@@ -23,14 +25,22 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  messages.push({
-    role: "user",
-    content: prompt,
-  });
+  if (context) {
+    const message = `{prompt: ${prompt}, context: ${context}}`;
+    messages.push({
+      role: "user",
+      content: message,
+    });
+  } else {
+    messages.push({
+      role: "user",
+      content: prompt,
+    });
+  }
 
   const llmStream = await client.chat.completions.create({
-    model: "c1/anthropic/claude-sonnet-4/v-20250815",
-    messages: [...messages],
+    model: "c1/anthropic/claude-3.5-sonnet/v-20250815",
+    messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
     stream: true,
   });
 

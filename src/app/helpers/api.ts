@@ -13,10 +13,8 @@ export type ApiCallParams = {
   onResponseUpdate: (response: string) => void;
   /** Callback to indicate the response stream end */
   onResponseStreamEnd?: () => void;
-  /** Current abort controller for cancelling ongoing requests */
-  abortController: AbortController | null;
-  /** Callback to update the abort controller state */
-  setAbortController: (controller: AbortController | null) => void;
+  /** Additional context to send with the request */
+  additionalContext?: string;
 };
 
 /**
@@ -28,21 +26,12 @@ export type ApiCallParams = {
 export const makeApiCall = async ({
   searchQuery,
   previousC1Response,
-  onResponseUpdate: setC1Response,
+  onResponseUpdate,
   onResponseStreamStart,
   onResponseStreamEnd,
-  abortController,
-  setAbortController,
+  additionalContext,
 }: ApiCallParams) => {
   try {
-    // Cancel any ongoing request before starting a new one
-    if (abortController) {
-      abortController.abort();
-    }
-
-    // Create and set up a new abort controller for this request
-    const newAbortController = new AbortController();
-    setAbortController(newAbortController);
     onResponseStreamStart?.();
 
     // Make the API request with the abort signal
@@ -53,9 +42,9 @@ export const makeApiCall = async ({
       },
       body: JSON.stringify({
         prompt: searchQuery,
+        context: additionalContext,
         previousC1Response,
       }),
-      signal: newAbortController.signal,
     });
 
     // Set up stream reading utilities
@@ -77,7 +66,7 @@ export const makeApiCall = async ({
 
       // Accumulate response and update state
       streamResponse += chunk;
-      setC1Response(streamResponse);
+      onResponseUpdate(streamResponse);
 
       // Break the loop when stream is complete
       if (done) {
@@ -89,6 +78,5 @@ export const makeApiCall = async ({
   } finally {
     // Clean up: reset loading state and abort controller
     onResponseStreamEnd?.();
-    setAbortController(null);
   }
 };
