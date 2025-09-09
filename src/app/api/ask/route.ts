@@ -5,7 +5,7 @@ import { transformStream } from "@crayonai/stream";
 import { SYSTEM_PROMPT } from "./systemPrompt";
 
 const client = new OpenAI({
-  baseURL: "http://localhost:3102/v1/embed",
+  baseURL: "https://api.thesys.dev/v1/embed",
   apiKey: process.env.THESYS_API_KEY,
 });
 
