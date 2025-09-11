@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "./variables.css";
+@config "../../tailwind.config.mjs";
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;
