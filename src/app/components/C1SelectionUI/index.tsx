@@ -111,6 +111,7 @@ export const C1SelectionUI = track(() => {
         props: {
           w: newShapeWidth,
           h: newShapeHeight,
+          prompt,
         },
       });
 

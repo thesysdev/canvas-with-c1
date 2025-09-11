@@ -59,6 +59,7 @@ export const ResizableContainer = track(
     return (
       <div
         ref={contentRef}
+        className="flex flex-col gap-s"
         style={{
           width: "100%",
           minHeight: "fit-content",

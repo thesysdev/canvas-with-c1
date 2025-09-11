@@ -55,8 +55,19 @@ export class C1ComponentShapeUtil extends BaseBoxShapeUtil<C1ComponentShape> {
     }
 
     return (
-      <HTMLContainer style={{ overflow: "visible", pointerEvents: "all" }}>
+      <HTMLContainer
+        className="flex flex-col gap-s"
+        style={{
+          overflow: "visible",
+          pointerEvents: "all",
+        }}
+      >
         <ResizableContainer shape={shape} isStreaming={shape.props.isStreaming}>
+          {shape.props.prompt && (
+            <div className="py-xs px-s rounded-md bg-container border-default border w-fit max-w-full line-clamp-1 overflow-hidden min-h-[30px]">
+              {shape.props.prompt}
+            </div>
+          )}
           <ThemeProvider mode={isDarkMode ? "dark" : "light"}>
             <C1Component
               key={shape.id}
