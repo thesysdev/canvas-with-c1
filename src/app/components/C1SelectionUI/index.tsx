@@ -5,6 +5,9 @@ import { InputField } from "./InputField";
 import { useEffect, useState } from "react";
 import type { C1ComponentShape } from "../../shapes/C1ComponentShape";
 import { createArrowBetweenShapes } from "@/app/utils/connection";
+import { createShapeId } from "tldraw";
+import { extractC1ShapeContext } from "@/app/utils/shapeContext";
+import { makeApiCall } from "@/app/helpers/api";
 
 export const C1SelectionUI = track(() => {
   const editor = useEditor();
@@ -95,11 +98,6 @@ export const C1SelectionUI = track(() => {
       const newY = shapePageBounds.center.y - newShapeHeight / 2;
 
       // Create the shape using the low-level API for precise positioning
-      const { createShapeId } = await import("tldraw");
-      const { extractC1ShapeContext } = await import(
-        "../../utils/shapeContext"
-      );
-      const { makeApiCall } = await import("../../helpers/api");
 
       const shapeId = createShapeId();
       const additionalContext = extractC1ShapeContext(editor);
