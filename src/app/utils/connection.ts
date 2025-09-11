@@ -96,6 +96,7 @@ export function createArrowBetweenShapes(
           x: arrowPointInParentSpace.x - endTerminalPagePosition.x,
           y: arrowPointInParentSpace.x - endTerminalPagePosition.x,
         },
+        color: 'grey'
       },
     });
 

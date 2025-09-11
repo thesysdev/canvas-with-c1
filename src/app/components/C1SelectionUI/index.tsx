@@ -123,6 +123,8 @@ export const C1SelectionUI = track(() => {
         searchQuery: prompt,
         additionalContext,
         onResponseStreamStart: () => {
+          createArrowBetweenShapes(editor, originShapeId, shapeId);
+
           editor.updateShape({
             id: shapeId,
             type: "c1-component",
@@ -145,8 +147,6 @@ export const C1SelectionUI = track(() => {
             type: "c1-component",
             props: { ...currentShape.props, isStreaming: false },
           });
-
-          createArrowBetweenShapes(editor, originShapeId, shapeId);
         },
       });
     } catch (error) {
