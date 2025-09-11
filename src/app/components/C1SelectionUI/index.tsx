@@ -1,71 +1,10 @@
 "use client";
 
 import { track, useEditor } from "tldraw";
+import { InputField } from "./InputField";
 import { useEffect, useState } from "react";
 import type { C1ComponentShape } from "../../shapes/C1ComponentShape";
 import { createArrowBetweenShapes } from "@/app/utils/connection";
-
-interface InputFieldProps {
-  x: number;
-  y: number;
-  onSubmit: (value: string) => void;
-  onCancel: () => void;
-}
-
-const InputField = ({ x, y, onSubmit, onCancel }: InputFieldProps) => {
-  const [value, setValue] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (value.trim()) {
-      onSubmit(value.trim());
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      onCancel();
-    }
-  };
-
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: x,
-        top: y,
-        zIndex: 1000,
-        pointerEvents: "all",
-      }}
-    >
-      <form onSubmit={handleSubmit} className="flex gap-2" data-c1-input-area>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Enter prompt..."
-          autoFocus
-          className="px-3 py-2 border border-gray-300 rounded-lg shadow-lg min-w-[200px] text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-        />
-        <button
-          type="submit"
-          disabled={!value.trim()}
-          className="px-3 py-2 bg-blue-500 text-white rounded-lg shadow-lg text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
-        >
-          Create
-        </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="px-3 py-2 bg-gray-500 text-white rounded-lg shadow-lg text-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors"
-        >
-          Cancel
-        </button>
-      </form>
-    </div>
-  );
-};
 
 export const C1SelectionUI = track(() => {
   const editor = useEditor();

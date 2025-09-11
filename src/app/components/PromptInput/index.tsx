@@ -2,6 +2,8 @@ import { clsx } from "clsx";
 import { useState, useRef, useEffect } from "react";
 import { track, useEditor } from "tldraw";
 import { isMac, createC1ComponentShape } from "@/app/utils";
+import { IconButton } from "@crayonai/react-ui";
+import { ArrowUp } from "lucide-react";
 
 interface PromptInputProps {
   focusEventName: string;
@@ -31,6 +33,7 @@ export const PromptInput = track(({ focusEventName }: PromptInputProps) => {
   }, [focusEventName]);
 
   const onInputSubmit = async (prompt: string) => {
+    setPrompt("");
     try {
       await createC1ComponentShape(editor, {
         searchQuery: prompt,
@@ -45,37 +48,50 @@ export const PromptInput = track(({ focusEventName }: PromptInputProps) => {
   };
 
   return (
-    <div
+    <form
       className={clsx(
-        "flex items-center fixed bottom-4 left-1/2 -translate-x-1/2 p-2 rounded-xl text-md transition-all duration-300 gap-2",
+        "flex items-center fixed bottom-4 left-1/2 -translate-x-1/2 py-m pl-xl pr-l rounded-2xl border border-interactive-el text-md transition-all duration-300 gap-xs shadow-md min-h-[60px]",
         {
           "bg-neutral-800 border-neutral-700 text-white": isDarkMode,
-          "bg-white border-neutral-400 text-black": !isDarkMode,
-          "w-[200px]": !isFocused,
+          "bg-container border-interactive-el text-primary": !isDarkMode,
+          "w-[400px]": !isFocused,
           "w-1/2": isFocused,
         }
       )}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onInputSubmit(prompt);
+        setIsFocused(false);
+        inputRef.current?.blur();
+      }}
     >
       <input
         ref={inputRef}
         type="text"
-        placeholder="Ask C1 anything"
+        placeholder="Ask anything..."
         className="flex-1"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onBlurCapture={() => setIsFocused(false)}
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            onInputSubmit(prompt);
-            setPrompt("");
-          }
-        }}
       />
-      <span className="text-xs opacity-30">
-        {showMacKeybinds ? "⌘ + K" : "Ctrl + K"}
-      </span>
-    </div>
+      {isFocused ? (
+        <IconButton
+          variant="secondary"
+          icon={<ArrowUp />}
+          size="medium"
+          type="submit"
+          onMouseDown={(e) => {
+            // Prevent the input from losing focus when clicking the submit button
+            e.preventDefault();
+          }}
+        />
+      ) : (
+        <span className="text-xs opacity-30">
+          {showMacKeybinds ? "⌘ + K" : "Ctrl + K"}
+        </span>
+      )}
+    </form>
   );
 });
