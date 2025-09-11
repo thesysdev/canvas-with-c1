@@ -31,7 +31,7 @@ export function getImageSearchTool(writeThinkItem?: ThinkingStateCallback): Runn
         }
 
         const results = await client.search(altText, {
-          size: "medium",
+          size: "huge",
         });
         return results[0].url;
       },
