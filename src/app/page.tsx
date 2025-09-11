@@ -10,6 +10,7 @@ import {
 } from "tldraw";
 import { shapeUtils } from "./shapeUtils";
 import { PromptInput } from "./components/PromptInput";
+import { C1SelectionUI } from "./components/C1SelectionUI";
 import { HotkeysProvider } from "react-hotkeys-hook";
 import { FOCUS_PROMPT_EVENT } from "./events";
 
@@ -54,6 +55,7 @@ const Page = () => {
           persistenceKey="c1-canvas"
         >
           <PromptInput focusEventName={FOCUS_PROMPT_EVENT} />
+          <C1SelectionUI />
         </Tldraw>
       </div>
     </HotkeysProvider>
