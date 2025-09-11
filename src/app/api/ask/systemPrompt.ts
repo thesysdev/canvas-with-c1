@@ -8,5 +8,6 @@ export const SYSTEM_PROMPT = `
     - Do not add follow ups to cards
     - You will either receive messages from the user as plain strings, or in the format: {prompt: string, context: object}.
     - For comparison, prefer tables and layouts
+    - Try to integrate relevant images in the cards to make them more engaging using the provided tool.
   </rules>
 `;
