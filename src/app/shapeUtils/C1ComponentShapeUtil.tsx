@@ -34,6 +34,8 @@ export class C1ComponentShapeUtil extends BaseBoxShapeUtil<C1ComponentShape> {
 
   component = (shape: C1ComponentShape) => {
     const isDarkMode = this.editor.user.getIsDarkMode();
+    // Ensure we always have a valid theme mode for ThemeProvider
+    const themeMode = isDarkMode === true ? "dark" : "light";
 
     if (!shape.props.c1Response) {
       return (
@@ -59,7 +61,7 @@ export class C1ComponentShapeUtil extends BaseBoxShapeUtil<C1ComponentShape> {
         }}
       >
         <ResizableContainer shape={shape} isStreaming={shape.props.isStreaming}>
-          <ThemeProvider mode={isDarkMode ? "dark" : "light"}>
+          <ThemeProvider mode={themeMode}>
             {shape.props.prompt && (
               <div className="py-xs px-m rounded-md bg-container border-default border w-fit max-w-full line-clamp-1 overflow-hidden min-h-[30px]">
                 {shape.props.prompt}

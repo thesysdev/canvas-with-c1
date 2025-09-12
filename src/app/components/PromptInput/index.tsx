@@ -12,6 +12,8 @@ interface PromptInputProps {
 export const PromptInput = track(({ focusEventName }: PromptInputProps) => {
   const editor = useEditor();
   const isDarkMode = editor.user.getIsDarkMode();
+  // Ensure we always have a valid theme mode for ThemeProvider
+  const themeMode = isDarkMode === true ? "dark" : "light";
   const [isFocused, setIsFocused] = useState(false);
   const [prompt, setPrompt] = useState("");
   const showMacKeybinds = isMac();
@@ -67,8 +69,9 @@ export const PromptInput = track(({ focusEventName }: PromptInputProps) => {
         inputRef.current?.blur();
       }}
     >
-      <ThemeProvider mode={isDarkMode ? "dark" : "light"}>
+      <ThemeProvider mode={themeMode}>
         <input
+          name="prompt-input"
           ref={inputRef}
           type="text"
           placeholder="Ask anything..."

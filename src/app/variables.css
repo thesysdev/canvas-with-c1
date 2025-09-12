@@ -1,5 +1,5 @@
 :root {
-  /* Light theme variables (default) */
+  /* Light theme variables (default) - used when no data-theme attribute is set or as fallback */
   /* All Border Semantic Variables */
   /* -------------------------------- */
 
@@ -114,7 +114,7 @@
   }
 }
 
-/* Explicit light theme - overrides system preference */
+/* Explicit light theme - overrides system preference and handles undefined color scheme */
 [data-theme="light"] {
   color-scheme: light;
 

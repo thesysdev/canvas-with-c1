@@ -78,7 +78,7 @@ const Page = () => {
             const colorScheme = editor.user.getUserPreferences().colorScheme;
             if (colorScheme === "dark") {
               document.documentElement.setAttribute("data-theme", "dark");
-            } else if (colorScheme === "light") {
+            } else if (colorScheme === "light" || !colorScheme) {
               document.documentElement.setAttribute("data-theme", "light");
             } else if (colorScheme === "system") {
               // Remove data-theme attribute to allow system preference to take effect
@@ -88,11 +88,12 @@ const Page = () => {
           onUiEvent={(event, eventData) => {
             if (event === "color-scheme") {
               const { value: mode } = eventData as {
-                value: "light" | "dark" | "system";
+                value: "light" | "dark" | "system" | undefined;
               };
               if (mode === "dark") {
                 document.documentElement.setAttribute("data-theme", "dark");
-              } else if (mode === "light") {
+              } else if (mode === "light" || !mode) {
+                // Default to light theme if mode is undefined
                 document.documentElement.setAttribute("data-theme", "light");
               } else if (mode === "system") {
                 // Remove data-theme attribute to allow system preference to take effect
