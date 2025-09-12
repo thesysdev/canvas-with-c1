@@ -2,7 +2,6 @@ import { IconButton } from "@crayonai/react-ui";
 import clsx from "clsx";
 import { ArrowUp, X } from "lucide-react";
 import { useState } from "react";
-import { useEditor } from "tldraw";
 
 interface InputFieldProps {
   x: number;
@@ -12,8 +11,6 @@ interface InputFieldProps {
 }
 
 export const InputField = ({ x, y, onSubmit, onCancel }: InputFieldProps) => {
-  const editor = useEditor();
-  const isDarkMode = editor.user.getIsDarkMode();
   const [value, setValue] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
