@@ -51,10 +51,8 @@ export const PromptInput = track(({ focusEventName }: PromptInputProps) => {
   return (
     <form
       className={clsx(
-        "flex items-center fixed left-1/2 -translate-x-1/2 py-m pl-xl pr-l rounded-2xl border border-interactive-el text-md transition-all duration-300 gap-xs shadow-md min-h-[60px] ease-in-out",
+        "flex items-center fixed left-1/2 -translate-x-1/2 py-m pl-xl pr-l rounded-2xl border border-interactive-el text-md transition-all duration-300 gap-xs shadow-md min-h-[60px] ease-in-out bg-container text-primary",
         {
-          "bg-neutral-800 border-neutral-700 text-white": isDarkMode,
-          "bg-container border-interactive-el text-primary": !isDarkMode,
           "w-[400px]": !isFocused,
           "w-1/2": isFocused,
           // Position based on canvas state

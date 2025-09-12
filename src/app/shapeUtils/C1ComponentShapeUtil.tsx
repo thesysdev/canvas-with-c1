@@ -40,11 +40,7 @@ export class C1ComponentShapeUtil extends BaseBoxShapeUtil<C1ComponentShape> {
         <HTMLContainer>
           <div
             className={clsx(
-              "w-full h-full flex flex-col gap-1 items-center justify-center border border-[#7F56D917] outline-[#0000000F] bg-[#7F56D914] rounded-xl",
-              {
-                "text-primary": !isDarkMode,
-                "text-white": isDarkMode,
-              }
+              "w-full h-full flex flex-col gap-1 items-center justify-center border border-[#7F56D917] outline-[#0000000F] bg-[#7F56D914] rounded-xl text-primary"
             )}
           >
             <AiIcon />
@@ -63,12 +59,12 @@ export class C1ComponentShapeUtil extends BaseBoxShapeUtil<C1ComponentShape> {
         }}
       >
         <ResizableContainer shape={shape} isStreaming={shape.props.isStreaming}>
-          {shape.props.prompt && (
-            <div className="py-xs px-s rounded-md bg-container border-default border w-fit max-w-full line-clamp-1 overflow-hidden min-h-[30px]">
-              {shape.props.prompt}
-            </div>
-          )}
           <ThemeProvider mode={isDarkMode ? "dark" : "light"}>
+            {shape.props.prompt && (
+              <div className="py-xs px-m rounded-md bg-container border-default border w-fit max-w-full line-clamp-1 overflow-hidden min-h-[30px]">
+                {shape.props.prompt}
+              </div>
+            )}
             <C1Component
               key={shape.id}
               c1Response={shape.props.c1Response}

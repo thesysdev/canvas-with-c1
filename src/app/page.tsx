@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import "@crayonai/react-ui/styles/index.css";
 import "tldraw/tldraw.css";
 import {
@@ -42,6 +43,25 @@ const overrides: TLUiOverrides = {
 };
 
 const Page = () => {
+  useEffect(() => {
+    // Handle system color scheme changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const handleSystemThemeChange = () => {
+      // Only apply system preference if no explicit theme is set (auto mode)
+      if (!document.documentElement.hasAttribute('data-theme')) {
+        // The CSS media query will automatically handle the variable updates
+        // We just need to ensure tldraw is notified if needed
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleSystemThemeChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleSystemThemeChange);
+    };
+  }, []);
+
   return (
     <HotkeysProvider>
       <div
@@ -52,6 +72,19 @@ const Page = () => {
           shapeUtils={shapeUtils}
           components={components}
           overrides={overrides}
+          onUiEvent={(event, eventData) => {
+            if (event === "color-scheme") {
+              const { value: mode } = eventData as { value: "light" | "dark" | "system" };
+              if (mode === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+              } else if (mode === "light") {
+                document.documentElement.setAttribute("data-theme", "light");
+              } else if (mode === "system") {
+                // Remove data-theme attribute to allow system preference to take effect
+                document.documentElement.removeAttribute("data-theme");
+              }
+            }
+          }}
           persistenceKey="c1-canvas"
         >
           <PromptInput focusEventName={FOCUS_PROMPT_EVENT} />

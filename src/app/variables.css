@@ -1,4 +1,5 @@
-body {
+:root {
+  /* Light theme variables (default) */
   /* All Border Semantic Variables */
   /* -------------------------------- */
 
@@ -54,7 +55,125 @@ body {
   --secondary-ochre-text: rgb(234, 179, 8);
 }
 
-/* these are derived variable from physical variables for dark theme */
+/* System dark mode preference - applied when no explicit theme is set */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* All Border Semantic Variables */
+    /* -------------------------------- */
+
+    --arrows: rgba(255, 255, 255, 0.1);
+    --border-default: rgba(255, 255, 255, 0.06);
+    --border-interactive-el: rgba(255, 255, 255, 0.12);
+    --border-interactive-el-hover: rgba(255, 255, 255, 0.4);
+    --border-interactive-el-selected: rgba(255, 255, 255, 0.8);
+    --canvas-element-selected-border: rgba(59, 130, 246, 1);
+    --ai-container-border: rgba(127, 86, 217, 0.08);
+    --ai-container-border-hover: rgba(127, 86, 217, 0.2);
+
+    /* All Fill Semantic Variables */
+    /* -------------------------------- */
+
+    --elevated-fill: rgba(255, 255, 255, 0.1);
+    --canvas-element-fill: rgba(59, 130, 246, 1);
+    --platform-element-fill: rgba(54, 61, 73, 1);
+    --platform-accent-fill: rgba(44, 108, 237, 1);
+    --clickable-element-fill: rgba(7, 198, 140, 1);
+    --ai-container-fill: rgba(127, 86, 217, 0.08);
+    --ai-accent-fill: rgba(148, 104, 246, 1);
+    --ai-accent-hover-fill: rgba(170, 134, 249, 1);
+
+    /* New Fill Semantic Variables */
+    /* -------------------------------- */
+
+    --brand-el-fill: rgba(255, 255, 255, 1);
+    --brand-el-hover-fill: rgba(245, 245, 245, 1);
+    --danger-container-fill: rgba(217, 45, 32, 0.1);
+    --success-container-fill: rgba(7, 148, 85, 0.1);
+    --container-fill: rgba(43, 43, 43, 1);
+    --container-fill-hover: rgba(255, 255, 255, 0.1);
+    --sunk-fill: rgba(0, 0, 0, 0.2);
+    --overlay-fill: rgba(0, 0, 0, 0.4);
+    --background-fill: rgba(28, 28, 28, 1);
+
+    /* All Text Semantic Variables */
+    /* -------------------------------- */
+
+    --brand-text: rgba(0, 0, 0, 1);
+    --brand-text-secondary: rgba(0, 0, 0, 0.4);
+    --danger-text: rgba(253, 162, 155, 1);
+    --disabled-text: rgba(255, 255, 255, 0.2);
+    --info-text: rgba(125, 179, 247, 1);
+    --link-text: rgba(125, 179, 247, 1);
+    --primary-text: rgba(255, 255, 255, 1);
+    --secondary-text: rgba(255, 255, 255, 0.6);
+    --success-text: rgba(117, 224, 167, 1);
+    --platform-accent-text: rgba(100, 142, 225, 1);
+    --canvas-element-text: rgba(59, 130, 246, 1);
+    --secondary-violet-text: rgb(137, 90, 246);
+    --secondary-ochre-text: rgb(234, 179, 8);
+  }
+}
+
+/* Explicit light theme - overrides system preference */
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* All Border Semantic Variables */
+  /* -------------------------------- */
+
+  --arrows: rgba(0, 0, 0, 0.4);
+  --border-default: rgba(0, 0, 0, 0.06);
+  --border-interactive-el: rgba(0, 0, 0, 0.12);
+  --border-interactive-el-hover: rgba(0, 0, 0, 0.4);
+  --border-interactive-el-selected: rgba(0, 0, 0, 1);
+  --canvas-element-selected-border: rgba(59, 130, 246, 1);
+  --ai-container-border: rgba(127, 86, 217, 0.08);
+  --ai-container-border-hover: rgba(127, 86, 217, 0.2);
+
+  /* All Fill Semantic Variables */
+  /* -------------------------------- */
+
+  --elevated-fill: rgba(255, 255, 255, 0.3);
+  --canvas-element-fill: rgba(59, 130, 246, 1);
+  --platform-element-fill: rgba(234, 245, 255, 1);
+  --platform-accent-fill: rgba(11, 84, 231, 1);
+  --clickable-element-fill: rgba(0, 156, 120, 1);
+  --ai-container-fill: rgba(127, 86, 217, 0.08);
+  --ai-accent-fill: rgba(107, 54, 226, 1);
+  --ai-accent-hover-fill: rgba(87, 42, 187, 1);
+
+  /* New Fill Semantic Variables */
+  /* -------------------------------- */
+
+  --brand-el-fill: rgb(0, 0, 0);
+  --brand-el-hover-fill: rgba(0, 0, 0, 0.8);
+  --danger-container-fill: rgba(217, 45, 32, 0.08);
+  --success-container-fill: rgba(7, 148, 85, 0.08);
+  --container-fill: rgb(255, 255, 255);
+  --container-fill-hover: rgba(0, 0, 0, 0.04);
+  --sunk-fill: rgba(0, 0, 0, 0.04);
+  --overlay-fill: rgba(0, 0, 0, 0.4);
+  --background-fill: rgb(245, 245, 245);
+
+  /* All Text Semantic Variables */
+  /* -------------------------------- */
+
+  --brand-text: rgb(255, 255, 255);
+  --brand-text-secondary: rgba(255, 255, 255, 0.4);
+  --danger-text: rgb(217, 45, 32);
+  --disabled-text: rgba(0, 0, 0, 0.2);
+  --info-text: rgba(56, 148, 255, 1);
+  --link-text: rgb(0, 102, 255);
+  --primary-text: rgb(0, 0, 0);
+  --secondary-text: rgba(0, 0, 0, 0.4);
+  --success-text: rgba(7, 148, 85, 1);
+  --platform-accent-text: rgba(11, 84, 231, 1);
+  --canvas-element-text: rgba(59, 130, 246, 1);
+  --secondary-violet-text: rgb(137, 90, 246);
+  --secondary-ochre-text: rgb(234, 179, 8);
+}
+
+/* Explicit dark theme - overrides system preference */
 [data-theme="dark"] {
   color-scheme: dark;
 
