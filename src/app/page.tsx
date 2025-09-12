@@ -73,6 +73,18 @@ const Page = () => {
           shapeUtils={shapeUtils}
           components={components}
           overrides={overrides}
+          onMount={(editor) => {
+            // Set initial color scheme based on editor settings
+            const colorScheme = editor.user.getUserPreferences().colorScheme;
+            if (colorScheme === "dark") {
+              document.documentElement.setAttribute("data-theme", "dark");
+            } else if (colorScheme === "light") {
+              document.documentElement.setAttribute("data-theme", "light");
+            } else if (colorScheme === "system") {
+              // Remove data-theme attribute to allow system preference to take effect
+              document.documentElement.removeAttribute("data-theme");
+            }
+          }}
           onUiEvent={(event, eventData) => {
             if (event === "color-scheme") {
               const { value: mode } = eventData as {
