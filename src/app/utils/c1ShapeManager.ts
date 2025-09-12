@@ -58,6 +58,7 @@ export async function createC1ComponentShape(
     props: {
       w: width,
       h: height,
+      prompt: searchQuery,
     },
   });
 

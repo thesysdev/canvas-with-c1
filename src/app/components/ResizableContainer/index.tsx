@@ -21,24 +21,7 @@ export const ResizableContainer = track(
     };
 
     useLayoutEffect(() => {
-      const contentContainer = contentRef.current;
-      if (!contentContainer) return;
-
-      // The timeout exists because charts resize after first render
-      setTimeout(() => {
-        const shapeHeight = calculateShapeHeight(contentContainer);
-
-        editor.updateShape({
-          id: shape.id,
-          type: shape.type,
-          props: { ...shape.props, h: shapeHeight },
-        });
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [editor, shape.id, shape.type]);
-
-    useLayoutEffect(() => {
-      if (!contentRef.current || !isStreaming) return;
+      if (!contentRef.current) return;
 
       const updateShapeHeight = () => {
         if (!contentRef.current) return;
@@ -54,9 +37,11 @@ export const ResizableContainer = track(
               h: shapeHeight,
             },
           });
-          editor.select(shape.id);
-          editor.zoomToSelection({ animation: { duration: 200 } });
-          editor.deselect(shape.id);
+          if (isStreaming) {
+            editor.select(shape.id);
+            editor.zoomToSelection({ animation: { duration: 200 } });
+            editor.deselect(shape.id);
+          }
         });
       };
 
@@ -74,6 +59,7 @@ export const ResizableContainer = track(
     return (
       <div
         ref={contentRef}
+        className="flex flex-col gap-s"
         style={{
           width: "100%",
           minHeight: "fit-content",

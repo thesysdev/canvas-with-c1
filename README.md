@@ -1,8 +1,13 @@
+## Preview
+
 ## Introduction
 
 Experience the future of visual collaboration and ideation through [Thesys](https://www.thesys.dev/), where large language models and generative UI converge to create intelligent, interactive canvases. From AI-generated planning cards and research summaries to dynamic visualizations and collaborative layouts, this demo showcases how generative UI transforms traditional canvas tools into an adaptive, context-aware workspace that understands and responds to your creative and analytical needs.
 
 ## Demo
+
+![Canvas AI Demo](./public/canvas-ai.gif)
+
 
 [![Built with Thesys](https://thesys.dev/built-with-thesys-badge.svg)](https://thesys.dev)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-canvas--with--c1.vercel.app-blue?style=for-the-badge&logo=vercel&logo=link)](https://canvas-with-c1.vercel.app/)

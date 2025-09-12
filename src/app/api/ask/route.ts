@@ -23,7 +23,8 @@ export async function POST(req: NextRequest) {
   // Write initial thinking state
   c1Response.writeThinkItem({
     title: "Processing your request...",
-    description: "Analyzing your input and preparing to generate visual content.",
+    description:
+      "Analyzing your input and preparing to generate visual content.",
   });
 
   const messages: ChatCompletionMessageParam[] = [];
