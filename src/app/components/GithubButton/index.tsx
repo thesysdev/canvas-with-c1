@@ -1,5 +1,5 @@
 import { Button } from "@crayonai/react-ui";
-import { Github } from "lucide-react";
+import { Github, StarIcon } from "lucide-react";
 
 export const GithubButton = () => {
   const handleClick = () => {
@@ -8,8 +8,9 @@ export const GithubButton = () => {
 
   return (
     <Button
-      variant="secondary"
+      variant="primary"
       iconLeft={<Github />}
+      iconRight={<StarIcon fill="#eac54f" color="#eac54f" />}
       className="fixed bottom-12 right-2"
       onClick={handleClick}
     >
