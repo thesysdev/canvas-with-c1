@@ -15,7 +15,7 @@
     "clsx": "^2.1.1",
     "google-images": "^2.1.0",
     "lucide-react": "^0.469.0",
-    "next": "15.2.6",
+    "next": "15.2.8",
     "openai": "^4.91.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
