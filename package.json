@@ -9,12 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@crayonai/react-ui": "^0.8.41",
+    "@crayonai/react-ui": "^0.9.16",
     "@crayonai/stream": "^0.6.4",
-    "@thesysai/genui-sdk": "^0.6.40",
+    "@thesysai/genui-sdk": "^0.8.5",
     "clsx": "^2.1.1",
-    "google-images": "^2.1.0",
-    "lucide-react": "^0.469.0",
+    "lucide-react": "^0.562.0",
     "next": "15.2.8",
     "openai": "^4.91.1",
     "react": "^19.0.0",
@@ -26,7 +25,6 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/google-images": "^2.1.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
