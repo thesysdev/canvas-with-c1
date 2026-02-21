@@ -30,6 +30,7 @@ Unlike traditional mind mapping tools or static planning software, this project 
 - **Canvas**: tldraw for infinite canvas experience
 - **UI**: Tailwind CSS and Thesys GenUI SDK
 - **AI Integration**: Thesys C1 SDK
+- **Image Search**: Unsplash API for high-quality image sourcing
 - **Streaming**: Real-time response streaming for live card generation
 - **Hotkeys**: React Hotkeys Hook for keyboard shortcuts
 
@@ -40,6 +41,7 @@ Unlike traditional mind mapping tools or static planning software, this project 
 - Node.js (v20+)
 - NPM or PNPM
 - Thesys API key
+- Unsplash API access key (get one at [unsplash.com/developers](https://unsplash.com/developers))
 
 ### Setup
 
@@ -60,12 +62,14 @@ Unlike traditional mind mapping tools or static planning software, this project 
 
    ```bash
    export THESYS_API_KEY=<your-api-key>
+   export UNSPLASH_ACCESS_KEY=<your-unsplash-access-key>
    ```
 
    Or create a `.env.local` file:
 
    ```
    THESYS_API_KEY=your_thesys_api_key
+   UNSPLASH_ACCESS_KEY=your_unsplash_access_key
    ```
 
 ### Development

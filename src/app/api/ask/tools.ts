@@ -2,15 +2,33 @@ import type { RunnableToolFunctionWithParse } from "openai/lib/RunnableFunction.
 import type { RunnableToolFunctionWithoutParse } from "openai/lib/RunnableFunction.mjs";
 import { z } from "zod";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import GoogleImages from "google-images";
 import type { JSONSchema } from "openai/lib/jsonschema.mjs";
 
-const client = new GoogleImages(
-  process.env.GOOGLE_CSE_ID!,
-  process.env.GOOGLE_API_KEY!
-);
+const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY!;
 
 type ThinkingStateCallback = (title: string, description: string) => void;
+
+async function searchUnsplash(query: string): Promise<string> {
+  const url = new URL("https://api.unsplash.com/search/photos");
+  url.searchParams.set("query", query);
+  url.searchParams.set("per_page", "1");
+  url.searchParams.set("orientation", "landscape");
+
+  const res = await fetch(url.toString(), {
+    headers: { Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}` },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Unsplash API error: ${res.status} ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  if (!data.results?.length) {
+    throw new Error(`No images found for "${query}"`);
+  }
+
+  return data.results[0].urls.regular;
+}
 
 export function getImageSearchTool(writeThinkItem?: ThinkingStateCallback): RunnableToolFunctionWithParse<{ altText: string }> {
   return {
@@ -25,15 +43,11 @@ export function getImageSearchTool(writeThinkItem?: ThinkingStateCallback): Runn
         })
       ) as JSONSchema,
       function: async ({ altText }: { altText: string }) => {
-        // Write thinking state when image search tool is called
         if (writeThinkItem) {
           writeThinkItem("Searching for images...", `Finding the perfect image for your canvas.`);
         }
 
-        const results = await client.search(altText, {
-          size: "huge",
-        });
-        return results[0].url;
+        return searchUnsplash(altText);
       },
       strict: true,
     },
